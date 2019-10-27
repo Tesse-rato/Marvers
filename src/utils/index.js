@@ -5,6 +5,16 @@
  * @param {columns} columns  <Number>  // Numero de colunas que terão essas colunas
  * @returns {Promise}                  // Retorna uma Promise
  */
+
+/**
+ * Apenas recebe um Array e devolve um Array de Array
+ * 
+ * Recebe Array Unidimensional e retorna ArrayBidimensional
+ * 
+ * Cria colunas conforma no argumento da chamada e empilha linhas
+ * 
+ * Auxilia o design e reduz codigo
+ */
 export function createDataRows({ data, columns }) {
   return new Promise((resolve, reject) => {
     try {
