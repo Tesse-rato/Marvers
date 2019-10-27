@@ -16,7 +16,8 @@ export default function globalReducer(state, payload) {
     case types.STORAGE_AUTH: {
       return { ...state, auth: { ...state.auth, ...payload.auth } };
     }
-    case types.STORAGE_AUTH_CHARACTERS: {
+    case types.STORAGE_AUTH_CHARACTERS: { // Esse reducer é o primeiro a ser chamado quando retornado dados na API
+      // Sem ser solicitado e guardado uma variavel no state que é a query string pronta para autenticação na API
       const accessParams = `?ts=${payload.auth.ts}&apikey=${payload.auth.apikey}&hash=${payload.auth.token}`;
       return { ...state, auth: { ...payload.auth, accessParams }, charactersData: payload.charactersData, environment: { scene: types.SCENE_CHARACTERS } };
     }
@@ -36,7 +37,13 @@ export default function globalReducer(state, payload) {
       }
     }
     case types.SET_ENVIRONMENT: {
-      return { ...state, comicsData: { ...state.comicsData, ...payload.comicsData }, charactersData: { ...state.charactersData, ...payload.charactersData }, environment: { ...state.environment, ...payload.environment } }
+      return {
+        ...state,
+        comicsData: { ...state.comicsData, ...payload.comicsData },
+        charactersData: { ...state.charactersData, ...payload.charactersData },
+        environment: { ...state.environment, ...payload.environment },
+        comicDetails: { ...state.comicDetails, ...payload.comicDetails }
+      }
     }
     case types.STORAGE_COMICS: {
       return { ...state, comicsData: payload.comicsData, environment: { ...state.environment, scene: types.SCENE_COMICS } };
