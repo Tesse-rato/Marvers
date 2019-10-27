@@ -11,6 +11,7 @@ import {
   Text,
   HeroDetails,
 } from './styles';
+
 import api from '../../api';
 import { createDataRows } from '../../utils';
 
@@ -21,31 +22,35 @@ export default ({ thumbnail, name, id, description }) => {
 
   const opacity = new Animated.Value(0);
 
-  let detailsOpen = false;
-
-  const handleDetailsClick = () => {
+  let detailsOpen = 0; // Auxilia em tempo de execução, não precisa ser estado, não precisa de re-render
+  const handleDetailsClick = () => { // 
     let value = detailsOpen ? 0 : 2;
     detailsOpen = !detailsOpen;
     Animated.timing(opacity, { toValue: value, duration: 300 }).start();
-  };
+  }; // Manipula o valor animado {opacity} não causa reender, não possui estado
 
-  const handleCharacterClick = () => {
+  const handleComicsClick = () => {
+    const environment = { scene: types.SCENE_COMICS, filterCharacter: { id, name } };
 
-    let environment = { scene: types.SCENE_COMICS, filterCharacter: { id, name } };
-
+    /**
+     * Alterar o estado da aplicação para vazia ajuda os componentes funcionarem
+     * O loading indentifica a falta de dados... etc.
+    */
     setGlobalState({ action: types.SET_ENVIRONMENT, comicsData: { results: [] }, environment });
 
-    api.getHeroesComics({ id, ...globalState.auth }).then(({ data }) => {
-      createDataRows({ data: data.results, columns: 2 }).then(rows => {
-        setGlobalState({
-          action: types.STORAGE_COMIC_HEROES,
-          comicsData: { ...data, results: rows },
-          environment
+    setTimeout(() => {
+      api.getHeroesComics({ id, ...globalState.auth }).then(({ data }) => {
+        createDataRows({ data: data.results, columns: 2 }).then(rows => {
+          setGlobalState({
+            action: types.STORAGE_COMIC_HEROES,
+            comicsData: { ...data, results: rows },
+            environment
+          });
+        }).catch(err => {
+          throw new Error(err);
         });
-      }).catch(err => {
-        throw new Error(err);
       });
-    });
+    }, 500); // Um delay pra ajudar os componentes atualizarem
   }
 
   const interpolate = (value, inputRange, outputRange) => {
@@ -75,7 +80,7 @@ export default ({ thumbnail, name, id, description }) => {
           <TouchableOpacity onPress={handleDetailsClick}>
             <Text>Detalhes</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleCharacterClick}>
+          <TouchableOpacity onPress={handleComicsClick}>
             <Text>Comics</Text>
           </TouchableOpacity>
         </View>

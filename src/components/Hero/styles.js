@@ -20,7 +20,7 @@ export const HeroImage = styled(Animated.Image).attrs(({ blurRadius }) => ({
 
 export const HeroDetails = styled(Animated.Text)`
   font-size: 12px;
-  font-family: Verdana;
+  font-family: RobotoCondensed-BoldItalic;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -37,18 +37,19 @@ export const TitleContainer = styled.View`
   margin-bottom: 2px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-
 `;
 
 export const HeroName = styled.Text`
-  font-family: sans-serif;
+  font-family: RobotoCondensed-Bold;
   font-size: 12px;
   color: #333;
+  height: 15px;
 `;
 
 export const Text = styled.Text`
   font-family: Verdana;
   color: #0047ab;
-  font-size: 10px;
+  font-size: 11px;
   align-self: flex-end;
+  margin-top: 6px;
 `;

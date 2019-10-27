@@ -25,19 +25,22 @@ export const TitleContainer = styled.View`
   background-color: #FFF;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding-left: 5px;
   justify-content: space-between;
 `;
 
 export const Title = styled.Text`
   font-size: 14;
   color: #222;
+  font-family: RobotoCondensed-Bold;
+  height: 35px;
+  margin-left: 10px;
 `;
 
 export const Name = styled.Text`
-  font-size: 10;
+  font-size: 12px;
   color: #444;
-  top: -10px;
+  text-align: center;
+  font-family: RobotoCondensed-Light;
 `;
 
 export const Variant = styled.Text`

@@ -1,3 +1,14 @@
+
+/**
+ * ListView é dinânico
+ * Pode alterar qual componente vai ser montado
+ * Altera entre *../../pages/Heroes* *../../pages/Comcis*
+ * 
+ * Esse componente reage ao estado da aplicação
+ * O FlatList junto com Doom guarda props.key
+ * 
+ */
+
 import React, { useEffect } from 'react';
 import { FlatList, Animated } from 'react-native';
 import { GLOBAL_CTX, types } from '../../store';
@@ -16,7 +27,9 @@ export default () => {
 
   let opacity = new Animated.Value(0);
 
-  useEffect(() => {
+  const totalComics = 45621;
+
+  useEffect(() => {             // Anima o container, sensação de pagina entrando
     Animated.timing(opacity, {
       toValue: 1,
       duration: 500,
@@ -27,11 +40,10 @@ export default () => {
   useEffect(() => {
     const { environment, comicsData } = globalState;
 
-    if (environment.scene === types.SCENE_COMICS) {
+    if (environment.scene === types.SCENE_COMICS) { // Se nao tiver nenhuma Comic na lista solicita uma faixa entre 0 e totalComics
       if (!comicsData.results.length) {
-        console.log('Pegando comics automatico');
         if (!environment.filterCharacter) {
-          api.getComics({ ...globalState.auth, offset: Math.random() * 45000 }).then(({ data }) => {
+          api.getComics({ ...globalState.auth, offset: Math.random() * totalComics }).then(({ data }) => {
             createDataRows({ columns: 2, data: data.results }).then(rows => {
               setGlobalState({ action: types.STORAGE_COMICS, comicsData: { ...data, results: rows } })
             });
@@ -57,7 +69,7 @@ export default () => {
       <FlatList
         data={scene === types.SCENE_CHARACTERS ? charactersData.results : comicsData.results}
         renderItem={scene === types.SCENE_CHARACTERS ? Heroes : Comics}
-        keyExtractor={item => item[0].id.toString()}
+        keyExtractor={item => 'ListView' + item[0].id}
         style={{ flex: 1 }}
       />
     </Container>

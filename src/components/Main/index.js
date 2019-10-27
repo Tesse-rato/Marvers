@@ -9,15 +9,11 @@ import Header from '../Header';
 import ListView from '../ListView';
 import BotBar from '../BotBar';
 import Loading from '../Loading';
-
 import Details from '../../pages/Details';
 
 import { createDataRows } from '../../utils';
 
-//export const MAIN_CTX = React.createContext();
-
 export default function Main() {
-  console.disableYellowBox = true;
 
   const [globalState, setGlobalState] = React.useContext(GLOBAL_CTX);
   const [state, setState] = React.useReducer(MainReducer, null);
@@ -25,6 +21,8 @@ export default function Main() {
   const [loading, setLoading] = React.useState(true);
   const [showList, setShowList] = React.useState(false);
   const [showDetails, setShowDetails] = React.useState(false);
+
+  const { charactersData, comicsData, environment: { scene, } } = globalState;
 
   const setCharacters = () => {
     setLoading(true);
@@ -48,15 +46,11 @@ export default function Main() {
 
   useEffect(() => {
     if (!state) return;
-    if (!globalState.charactersData.results.length) {
-      console.log('Characters Vazio, pegando automatico');
-      setCharacters().then(() => null).catch(console.log);
-      return;
-    }
+    if (!charactersData.results.length) { setCharacters().catch(console.log); return; }
     if (!showList) setShowList(true);
 
-    if (globalState.environment.scene === types.SCENE_COMICS) {
-      if (globalState.comicsData.results.length) {
+    if (scene === types.SCENE_COMICS) {
+      if (comicsData.results.length) {
         setLoading(false);
       }
       else {
@@ -64,7 +58,7 @@ export default function Main() {
       }
     }
 
-    if (globalState.environment.scene != types.SCENE_DETAILS) {
+    if (scene != types.SCENE_DETAILS) {
       if (showDetails) setShowDetails(false);
     }
     else {

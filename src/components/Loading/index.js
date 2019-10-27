@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ProgressBarAndroid } from 'react-native';
+import { ProgressBarAndroid } from 'react-native';
 import config from '../config';
 
 export default props => (
