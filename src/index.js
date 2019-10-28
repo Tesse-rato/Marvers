@@ -6,7 +6,7 @@ import Store from './store';
 
 export default () => (
   <Store>
-    <StatusBar barStyle='dark-content' backgroundColor='#FFF' />
+    <StatusBar barStyle='light-content' backgroundColor='#222' />
     <Main />
   </Store>
 );

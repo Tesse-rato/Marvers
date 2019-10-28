@@ -53,7 +53,7 @@ export const HeroPreview = styled.View`
 `;
 
 export const SaleDate = styled.Text`
-  width: 200px;
+  width: 230px;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 50px;

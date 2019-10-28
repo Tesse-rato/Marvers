@@ -1,5 +1,5 @@
 import NewApi, { client as Client } from './newApi';
-let localhost = 'http://192.168.1.5:3030';
+let localhost = 'http://caserahost.ddns.net:3030';
 
 const routes = [
   {
