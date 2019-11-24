@@ -22,7 +22,7 @@ Com o repositório em sua máquina rode os comandos `npm install` ou `yarn insta
 
 ##### Quero instalar também o backend
 
-Se você optou por testar o app junto ao backend cole ele do repositório: `git clone https://github.com/Tesse-rato/Marvers.git`
+Se você optou por testar o app junto ao backend cole ele do repositório: `git clone https://github.com/Tesse-rato/Marvers-server.git`
 
 Fique atento pois você deve criar duas variavéis de ambiente com as chaves da Marver para obter acesso ao API da marvel com um token de autenticação! Se você não sabe que chaves são essas você pode criar uma conta de desenvolvedor no site da [Marvel](https://developer.marvel.com/), siga as istruções para obter suas chaves de acesso.
 
